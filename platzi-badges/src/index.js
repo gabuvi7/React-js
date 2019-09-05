@@ -15,6 +15,6 @@ const container = document.getElementById('app');
 //ReactDOM.render(__que__,__donde__);
 
 ReactDOM.render(element,container);
-
+// prueba
 
 //Siempre que use jsx debo importar react en cada documento.
