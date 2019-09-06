@@ -8,13 +8,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const element = <h1>Hello, Platzi Badges from React!</h1>
+import Badges from './Components/Badges';
 
 const container = document.getElementById('app');
 
-//ReactDOM.render(__que__,__donde__);
-
-ReactDOM.render(element,container);
-// prueba
+ReactDOM.render(<Badges />,container);
 
 //Siempre que use jsx debo importar react en cada documento.
