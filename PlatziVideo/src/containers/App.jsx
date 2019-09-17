@@ -6,46 +6,43 @@ import Categories from "../components/Categories";
 import Carousel from "../components/Carousel";
 import CarouselItem from "../components/CarouselItem";
 import Footer from "../components/Footer";
+import useInitialState from "../hooks/useInitialState";
+import { useInitialVideos } from "../hooks/useInitialVideos";
 
-const App = () => {
-  const [videos, setVideos] = useState([]);
+const API = "http://localhost:3000/initalState";
 
-  useEffect(() => {
-    fetch('http://localhost:3000/initalState')
-      .then((response) => response.json())
-      .then((data) => setVideos(data));
-  }, []);
-
-  console.log(videos);
+export const App = () => {
+  const videos = useInitialVideos(API);
 
   return (
     <div className="App">
       <Header />
       <Search />
-      <Categories title="Mi lista">
-        <Carousel>
-          <CarouselItem />
-          <CarouselItem />
-          <CarouselItem />
-          <CarouselItem />
-          <CarouselItem />
-        </Carousel>
-      </Categories>
-
-      <Categories title="Tendencias">
-        <Carousel>
-          <CarouselItem />
-          <CarouselItem />
-          <CarouselItem />
-        </Carousel>
-      </Categories>
-
-      <Categories title="Originales de la plataforma">
-        <Carousel>
-          <CarouselItem />
-          <CarouselItem />
-        </Carousel>
-      </Categories>
+      {videos &&
+        Object.keys(videos).map((categorie) => {
+          if (videos[categorie].length) {
+            return (
+              <Categories title={categorie} key={categorie}>
+                <Carousel>
+                  {videos[categorie].map((video) => {
+                    return (
+                      <CarouselItem
+                        cover={video.cover}
+                        alt={video.title}
+                        key={video.id}
+                        year={video.year}
+                        title={video.title}
+                        content={video.contentRating}
+                        duration={video.duration}
+                      />
+                    );
+                  })}
+                </Carousel>
+              </Categories>
+            );
+          }
+          return null;
+        })}
       <Footer />
     </div>
   );
