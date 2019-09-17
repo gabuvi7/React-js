@@ -32,7 +32,7 @@ export const App = () => {
                         key={video.id}
                         year={video.year}
                         title={video.title}
-                        content={video.contentRating}
+                        contentRating={video.contentRating}
                         duration={video.duration}
                       />
                     );
